@@ -2,7 +2,7 @@
 
 A high-performance, responsive portfolio built with a modern cyber-grid design aesthetic, engineered specifically for speed and accessibility. This project showcases my experience, deployment pipelines, and cloud expertise as a Cloud/Full-Stack Engineer.
 
-🔗 **Live Deployment:** [https://matt-go.github.io/website_demo/](https://matt-go.github.io/website_demo/)
+🔗 **Live Deployment:** [https://matt-go.github.io/portfolio/](https://matt-go.github.io/portfolio/)
 
 ---
 
