@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dracula">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Matthew Cedric Golez</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <canvas id="canvas-bg"></canvas>
+  <div class="data-streams" id="streams"></div>
+
+  <nav>
+    <div class="nav-logo">MCG<span>::</span>cloud_engineer</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html" style="color: var(--cyan);">Projects</a></li>
+      <li><a href="experience.html">Work</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="education.html">Education</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-controls">
+      <select id="theme-select">
+        <option value="dracula" selected>Dracula Pro</option>
+        <option value="nord">Nord Light</option>
+      </select>
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        AVAILABLE
+      </div>
+    </div>
+  </nav>
+
+  <main style="padding-top: 100px;">
+    <section id="projects">
+      <div class="container">
+        <div class="section-header reveal visible">
+          <h2 class="section-title">Code in the <span class="ghost">Wild</span></h2>
+        </div>
+
+        <div class="exp-grid">
+          <div class="exp-item reveal visible" style="border-top: 1px solid var(--border);">
+            <div class="exp-meta">
+              <div class="exp-date">LIVE PROJECT</div>
+              <div class="exp-company">Cloud Architecture</div>
+              <div class="exp-location">🚀</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">Personal Engineering Blog</div>
+              <div class="exp-project">▸ Global Content Delivery Pipeline</div>
+              <ul class="exp-bullets">
+                <li>Designed and deployed a highly available, lightning-fast technical blog serving content globally through a dedicated AWS CloudFront edge-caching profile.</li>
+                <li>Configured secure origins, optimized cache behaviors, and custom routing policies to achieve minimal Time to First Byte (TTFB) and seamless UI delivery.</li>
+              </ul>
+              <div class="hero-cta" style="margin-top: 24px; opacity: 1; animation: none;">
+                <a href="https://d26pw1u8joukgr.cloudfront.net/" target="_blank" rel="noopener noreferrer" class="btn-primary">↗ Launch Live App</a>
+              </div>
+              <div class="metric-chips" style="margin-top: 24px;">
+                <span class="metric-chip">AWS CloudFront</span>
+                <span class="metric-chip">Edge Caching</span>
+                <span class="metric-chip">CDN</span>
+                <span class="metric-chip">High Availability</span>
+                <span class="metric-chip">Performance Tuning</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item reveal visible">
+            <div class="exp-meta">
+              <div class="exp-date">01 // ML</div>
+              <div class="exp-company">University of Washington</div>
+              <div class="exp-location">Seattle, WA</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">User Hobby Classifier</div>
+              <div class="exp-project">▸ Machine Learning · Recommendation Engine</div>
+              <ul class="exp-bullets">
+                <li>Built a predictive recommendation engine using Python Flask, processing user input to identify and suggest related interests with 90%+ accuracy.</li>
+                <li>Automated a data extraction pipeline using Selenium + BeautifulSoup, aggregating 1,000+ unique user profiles from public sources.</li>
+              </ul>
+              <div class="metric-chips">
+                <span class="metric-chip">Python</span>
+                <span class="metric-chip">Flask</span>
+                <span class="metric-chip">Selenium</span>
+                <span class="metric-chip">BeautifulSoup</span>
+                <span class="metric-chip">ML</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item reveal visible">
+            <div class="exp-meta">
+              <div class="exp-date">02 // DB</div>
+              <div class="exp-company">University of Washington</div>
+              <div class="exp-location">Seattle, WA</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">Flights Database System</div>
+              <div class="exp-project">▸ Database Systems · CLI Application</div>
+              <ul class="exp-bullets">
+                <li>Built a CLI-based flight management system in Java connected to Microsoft Azure SQL, managing 10,000+ entries with full transactional logic for concurrent booking and cancellations.</li>
+                <li>Achieved sub-second query execution and 100% data consistency across concurrent operations using optimized schema design and JDBC.</li>
+              </ul>
+              <div class="metric-chips">
+                <span class="metric-chip">Java</span>
+                <span class="metric-chip">Azure SQL</span>
+                <span class="metric-chip">JDBC</span>
+                <span class="metric-chip">Transactions</span>
+                <span class="metric-chip">CLI</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-copy">© 2026 Matthew Cedric Golez — All systems operational</div>
+    <div class="footer-coords">47.6062°N 122.3321°W // Seattle, WA</div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

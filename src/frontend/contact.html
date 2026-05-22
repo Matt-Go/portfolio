@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dracula">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Matthew Cedric Golez</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <canvas id="canvas-bg"></canvas>
+  <div class="data-streams" id="streams"></div>
+
+  <nav>
+    <div class="nav-logo">MCG<span>::</span>cloud_engineer</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="experience.html">Work</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="education.html">Education</a></li>
+      <li><a href="contact.html" style="color: var(--cyan);">Contact</a></li>
+    </ul>
+    <div class="nav-controls">
+      <select id="theme-select">
+        <option value="dracula" selected>Dracula Pro</option>
+        <option value="nord">Nord Light</option>
+      </select>
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        AVAILABLE
+      </div>
+    </div>
+  </nav>
+
+  <main style="padding-top: 140px; padding-bottom: 60px;">
+    <section id="contact" style="padding: 0;">
+      <div class="contact-inner" style="opacity: 1; transform: none;">
+        <h2 class="contact-title reveal visible">
+          Ready to <span class="italic-accent">Deploy</span>
+        </h2>
+
+        <div class="contact-rows">
+          <a href="mailto:mattgo1005@gmail.com" class="contact-row reveal visible">
+            <div class="contact-row-left">
+              <span class="contact-row-label">Email</span>
+              <span class="contact-row-value">mattgo1005@gmail.com</span>
+            </div>
+            <span class="contact-row-arrow">→</span>
+          </a>
+          <a href="tel:5033957216" class="contact-row reveal visible">
+            <div class="contact-row-left">
+              <span class="contact-row-label">Phone</span>
+              <span class="contact-row-value">(503) 395-7216</span>
+            </div>
+            <span class="contact-row-arrow">→</span>
+          </a>
+          <a href="https://linkedin.com/in/matt-go" target="_blank" rel="noopener noreferrer" class="contact-row reveal visible">
+            <div class="contact-row-left">
+              <span class="contact-row-label">LinkedIn</span>
+              <span class="contact-row-value">linkedin.com/in/matt-go</span>
+            </div>
+            <span class="contact-row-arrow">→</span>
+          </a>
+          <a href="https://github.com/Matt-Go" target="_blank" rel="noopener noreferrer" class="contact-row reveal visible">
+            <div class="contact-row-left">
+              <span class="contact-row-label">GitHub</span>
+              <span class="contact-row-value">github.com/Matt-Go</span>
+            </div>
+            <span class="contact-row-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-copy">© 2026 Matthew Cedric Golez — All systems operational</div>
+    <div class="footer-coords">47.6062°N 122.3321°W // Seattle, WA</div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dracula">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education — Matthew Cedric Golez</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <canvas id="canvas-bg"></canvas>
+  <div class="data-streams" id="streams"></div>
+
+  <nav>
+    <div class="nav-logo">MCG<span>::</span>cloud_engineer</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="experience.html">Work</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="education.html" style="color: var(--cyan);">Education</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-controls">
+      <select id="theme-select">
+        <option value="dracula" selected>Dracula Pro</option>
+        <option value="nord">Nord Light</option>
+      </select>
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        AVAILABLE
+      </div>
+    </div>
+  </nav>
+
+  <main style="padding-top: 100px;">
+    <section id="education">
+      <div class="container">
+        <div class="section-header reveal visible">
+          <h2 class="section-title">The <span class="ghost">Foundations</span></h2>
+        </div>
+
+        <div class="exp-grid">
+          <div class="exp-item reveal visible" style="border-top: 1px solid var(--border);">
+            <div class="exp-meta">
+              <div class="exp-date">In Progress · Aug 2026</div>
+              <div class="exp-company">Per Scholas</div>
+              <div class="exp-location">Seattle, WA</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">AWS re/Start Training</div>
+              <div class="exp-project">▸ 15-Week Full-Time Program</div>
+              <ul class="exp-bullets">
+                <li>Rigorous program covering Cloud Computing, Networking, Databases, and AWS Management, Monitoring & Governance.</li>
+                <li>Hands-on training with Linux, Python, Shell Scripting, EC2, Lambda, Auto Scaling, VPC, Network Firewall, AWS Systems Manager, Redshift, and DynamoDB.</li>
+              </ul>
+              <div class="metric-chips">
+                <span class="metric-chip">AWS</span>
+                <span class="metric-chip">Linux</span>
+                <span class="metric-chip">Python</span>
+                <span class="metric-chip">Cloud Fundamentals</span>
+                <span class="metric-chip">Networking</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item reveal visible">
+            <div class="exp-meta">
+              <div class="exp-date">Completed · Mar 2021</div>
+              <div class="exp-company">University of Washington</div>
+              <div class="exp-location">Bothell, WA</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">B.S. Mathematics + Minor in CS</div>
+              <div class="exp-project">▸ Mathematics & Computer Science</div>
+              <ul class="exp-bullets">
+                <li>Math coursework: Discrete Modeling, Advanced Linear Algebra, Statistical Inference, Linear Programming, Numerical Analysis.</li>
+                <li>CS coursework: Data Structures & Algorithms, Database Systems & Internals.</li>
+              </ul>
+              <div class="metric-chips">
+                <span class="metric-chip">Discrete Modeling</span>
+                <span class="metric-chip">Linear Algebra</span>
+                <span class="metric-chip">Algorithms</span>
+                <span class="metric-chip">Database Systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-copy">© 2026 Matthew Cedric Golez — All systems operational</div>
+    <div class="footer-coords">47.6062°N 122.3321°W // Seattle, WA</div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
