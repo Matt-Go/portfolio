@@ -409,8 +409,6 @@ nav {
   animation: fadeUp 0.8s 1.1s forwards;
 }
 
-
-
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -635,6 +633,7 @@ nav {
 }
 
 /* ── SECTION BACKGROUNDS ── */
+#featured-project { background: var(--bg2); }
 #skills { background: var(--bg); }
 #experience { background: var(--bg2); }
 #projects { background: var(--bg); }
@@ -862,6 +861,7 @@ footer {
 <nav>
   <div class="nav-logo">MCG<span>::</span>cloud_engineer</div>
   <ul class="nav-links">
+    <li><a href="#featured-project">Featured</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Work</a></li>
     <li><a href="#projects">Projects</a></li>
@@ -900,7 +900,7 @@ footer {
         </p>
         <div class="hero-cta">
           <a href="#contact" class="btn-primary">↗ Get in Touch</a>
-          <a href="#experience" class="btn-outline">View Work</a>
+          <a href="#featured-project" class="btn-outline">View Featured Project</a>
         </div>
       </div>
 
@@ -940,6 +940,43 @@ FROM engineer_profile<br>
 WHERE focus = 'cloud'<br>
 AND availability = TRUE<br>
 ORDER BY impact DESC;
+  </div>
+</section>
+
+<section id="featured-project">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">00 — Active Deployment</div>
+      <h2 class="section-title">Featured <span class="ghost">Project</span></h2>
+    </div>
+
+    <div class="exp-grid">
+      <div class="exp-item reveal" style="border-top: 1px solid var(--border);">
+        <div class="exp-meta">
+          <div class="exp-date">LIVE PROJECT</div>
+          <div class="exp-company">Cloud Architecture</div>
+          <div class="exp-location">🚀</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-role">Personal Engineering Blog</div>
+          <div class="exp-project">▸ Global Content Delivery Pipeline</div>
+          <ul class="exp-bullets">
+            <li>Designed and deployed a highly available, lightning-fast technical blog serving content globally through a dedicated AWS CloudFront edge-caching profile.</li>
+            <li>Configured secure origins, optimized cache behaviors, and custom routing policies to achieve minimal Time to First Byte (TTFB) and seamless UI delivery.</li>
+          </ul>
+          <div class="hero-cta" style="margin-top: 24px; opacity: 1; animation: none;">
+            <a href="https://d26pw1u8joukgr.cloudfront.net/" target="_blank" rel="noopener noreferrer" class="btn-primary">↗ Launch Live App</a>
+          </div>
+          <div class="metric-chips" style="margin-top: 24px;">
+            <span class="metric-chip">AWS CloudFront</span>
+            <span class="metric-chip">Edge Caching</span>
+            <span class="metric-chip">CDN</span>
+            <span class="metric-chip">High Availability</span>
+            <span class="metric-chip">Performance Tuning</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
