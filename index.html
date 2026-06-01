@@ -175,45 +175,95 @@
     /* ─── HERO ───────────────────────────────────────── */
     #hero {
       min-height: 100vh;
-      padding-top: calc(var(--nav-h) + 60px);
-      padding-bottom: var(--gap);
-      display: flex;
-      align-items: center;
-      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       position: relative;
       overflow: hidden;
     }
 
-    /* Decorative background circles */
-    #hero::before, #hero::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    #hero::before {
-      width: 520px; height: 520px;
-      background: radial-gradient(circle, var(--beige-mid) 0%, transparent 70%);
-      top: -80px; right: -120px;
-    }
-
-    #hero::after {
-      width: 320px; height: 320px;
-      background: radial-gradient(circle, #E8D9C0 0%, transparent 70%);
-      bottom: 60px; left: -60px;
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 60px;
-      align-items: center;
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: calc(var(--nav-h) + 80px) clamp(32px, 6vw, 80px) 80px;
+      background: var(--cream);
       position: relative;
       z-index: 1;
     }
 
-    .hero-left {}
+    .hero-right {
+      position: relative;
+      background: var(--beige-mid);
+      overflow: hidden;
+    }
+
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(20%);
+    }
+
+    /* Gradient fade on left edge of photo */
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--cream) 0%, transparent 18%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Info card overlay at bottom of photo */
+    .hero-card {
+      position: absolute;
+      bottom: 36px;
+      left: 28px;
+      z-index: 2;
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--beige-dark);
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 220px;
+    }
+
+    .card-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--bark);
+    }
+
+    .card-role {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clay);
+      font-family: var(--mono);
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 4px;
+    }
+
+    .card-tag {
+      background: var(--beige-mid);
+      border: 1px solid var(--beige-dark);
+      padding: 3px 8px;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bark-light);
+      font-family: var(--mono);
+    }
 
     .hero-eyebrow {
       font-family: var(--mono);
@@ -236,7 +286,7 @@
 
     .hero-name {
       font-family: var(--serif);
-      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-size: clamp(3.2rem, 5.5vw, 6rem);
       font-weight: 300;
       line-height: 1.0;
       color: var(--bark);
@@ -270,10 +320,10 @@
     }
 
     .hero-summary {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 300;
       color: var(--ink-soft);
-      max-width: 520px;
+      max-width: 480px;
       margin-bottom: 40px;
       line-height: 1.75;
     }
@@ -282,6 +332,39 @@
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    /* Stats bar */
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      padding-top: 36px;
+      border-top: 1px solid var(--beige-dark);
+    }
+
+    .hero-stat-item {}
+
+    .hero-stat-number {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--bark);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .hero-stat-number span {
+      color: var(--clay);
+      font-style: italic;
+    }
+
+    .hero-stat-label {
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bark-light);
     }
 
     .btn-primary {
@@ -326,200 +409,11 @@
       color: var(--clay);
     }
 
-    /* Hero right: card */
-    .hero-card {
-      background: var(--beige);
-      border: 1px solid var(--beige-dark);
-      padding: 36px;
-      position: relative;
-    }
-
-    .hero-card::before {
-      content: '';
-      position: absolute;
-      top: 8px; left: 8px;
-      right: -8px; bottom: -8px;
-      border: 1px solid var(--beige-dark);
-      z-index: -1;
-    }
-
-    .hero-photo-wrap {
-      width: 100%;
-      aspect-ratio: 4/3;
-      overflow: hidden;
-      margin-bottom: 28px;
-      background: var(--beige-mid);
-      position: relative;
-    }
-
-    .hero-photo-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    /* Photo placeholder if img missing */
-    .hero-photo-wrap::after {
-      content: 'MCG';
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--serif);
-      font-size: 4rem;
-      font-weight: 300;
-      color: var(--beige-dark);
-      pointer-events: none;
-    }
-
-    .hero-card-info {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .card-name {
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--bark);
-    }
-
-    .card-role {
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--clay);
-      font-family: var(--mono);
-    }
-
-    .card-location {
-      font-size: 0.8rem;
-      color: var(--bark-light);
-      margin-top: 4px;
-    }
-
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .card-tag {
-      background: var(--beige-mid);
-      border: 1px solid var(--beige-dark);
-      padding: 4px 10px;
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--bark-light);
-      font-family: var(--mono);
-    }
-
     /* ─── Divider ─────────────────────────────────── */
     .divider {
       height: 1px;
       background: var(--beige-dark);
       margin: 0 clamp(20px, 5vw, 60px);
-    }
-
-    /* ─── Featured Project ─────────────────────────── */
-    #featured-project {
-      background: var(--beige);
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--beige-dark);
-      border: 1px solid var(--beige-dark);
-    }
-
-    .feature-cell {
-      background: var(--beige);
-      padding: 40px;
-    }
-
-    .feature-cell.wide {
-      grid-column: span 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-
-    .feature-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--clay);
-      margin-bottom: 12px;
-    }
-
-    .feature-title {
-      font-family: var(--serif);
-      font-size: 1.8rem;
-      font-weight: 400;
-      color: var(--bark);
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    .feature-desc {
-      font-size: 0.9rem;
-      color: var(--ink-soft);
-      line-height: 1.75;
-      margin-bottom: 24px;
-    }
-
-    .tech-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 28px;
-    }
-
-    .tech-pill {
-      background: transparent;
-      border: 1px solid var(--beige-dark);
-      padding: 5px 12px;
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--bark-light);
-      font-family: var(--mono);
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .tech-pill:hover {
-      background: var(--beige-mid);
-      border-color: var(--bark-light);
-    }
-
-    .feature-stat {
-      text-align: center;
-      padding: 28px;
-    }
-
-    .stat-number {
-      font-family: var(--serif);
-      font-size: 3rem;
-      font-weight: 300;
-      color: var(--clay);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--bark-light);
     }
 
     /* ─── Skills ─────────────────────────────────── */
@@ -979,13 +873,17 @@
 
     /* ─── Responsive ─────────────────────────────── */
     @media (max-width: 900px) {
-      .hero-inner {
+      #hero {
         grid-template-columns: 1fr;
-        gap: 40px;
+        grid-template-rows: auto 50vh;
       }
 
-      .hero-card {
-        max-width: 400px;
+      .hero-left {
+        padding: calc(var(--nav-h) + 40px) clamp(20px, 5vw, 40px) 40px;
+      }
+
+      .hero-right::before {
+        background: linear-gradient(to bottom, var(--cream) 0%, transparent 20%);
       }
 
       .skills-grid {
@@ -1045,98 +943,59 @@
 
     <!-- ── Hero ────────────────────────────────── -->
     <section id="hero">
-      <div class="container">
-        <div class="hero-inner">
 
-          <div class="hero-left">
-            <p class="hero-eyebrow">Cloud-Focused Full-Stack Developer</p>
+      <div class="hero-left">
+        <p class="hero-eyebrow">Cloud-Focused Full-Stack Developer</p>
 
-            <h1 class="hero-name">
-              Matthew Cedric<em>Golez</em>
-            </h1>
+        <h1 class="hero-name">
+          Matthew Cedric<em>Golez</em>
+        </h1>
 
-            <div class="hero-title-row">
-              <div class="hero-divider"></div>
-              <span class="hero-stack">AWS · Python · Java · SQL · Git</span>
-            </div>
-
-            <p class="hero-summary">
-              Building scalable cloud architecture and data pipelines that run fast, stay up, and handle the real world. Based in Seattle — deploying everywhere.
-            </p>
-
-            <div class="hero-cta">
-              <a href="#contact" class="btn-primary">Get in Touch ↗</a>
-              <a href="#featured-project" class="btn-outline">Featured Project</a>
-            </div>
-          </div>
-
-          <div class="hero-card reveal">
-            <div class="hero-photo-wrap">
-              <img src="assets/img/pro_hero.png" alt="Matthew Cedric Golez"
-                   onerror="this.style.display='none'">
-            </div>
-            <div class="hero-card-info">
-              <div class="card-name">Matthew Cedric Golez</div>
-              <div class="card-role">Cloud Engineer</div>
-
-              <div class="card-tags">
-                <span class="card-tag">AWS</span>
-                <span class="card-tag">Full-Stack</span>
-                <span class="card-tag">Databases</span>
-
-              </div>
-            </div>
-          </div>
-
+        <div class="hero-title-row">
+          <div class="hero-divider"></div>
+          <span class="hero-stack">AWS · Python · Java · SQL · Git</span>
         </div>
-      </div>
-    </section>
 
-    <div class="divider"></div>
+        <p class="hero-summary">
+          Building scalable cloud architecture and data pipelines that run fast, stay up, and handle the real world. Based in Seattle — deploying everywhere.
+        </p>
 
-    <!-- ── Featured Project ──────────────────── -->
-    <section id="featured-project">
-      <div class="container">
-        <div class="section-label reveal">00 — Active Deployment</div>
-        <h2 class="section-title reveal">Featured <em>Project</em></h2>
+        <div class="hero-cta">
+          <a href="#contact" class="btn-primary">Get in Touch ↗</a>
+          <a href="#featured-project" class="btn-outline">Featured Project</a>
+        </div>
 
-        <div class="feature-grid reveal">
-          <div class="feature-cell wide">
-            <div>
-              <div class="feature-label">Cloud Architecture · Live</div>
-              <div class="feature-title">Personal Engineering Blog</div>
-              <p class="feature-desc">
-                Designed and deployed a highly available, lightning-fast technical blog serving content globally through a dedicated AWS CloudFront edge-caching profile. Configured secure origins, optimized cache behaviors, and custom routing policies to achieve minimal Time to First Byte (TTFB) and seamless UI delivery.
-              </p>
-              <div class="tech-pills">
-                <span class="tech-pill">AWS CloudFront</span>
-                <span class="tech-pill">Edge Caching</span>
-                <span class="tech-pill">CDN</span>
-                <span class="tech-pill">High Availability</span>
-                <span class="tech-pill">Performance Tuning</span>
-              </div>
-              <a href="https://d26pw1u8joukgr.cloudfront.net/" target="_blank" rel="noopener noreferrer" class="btn-primary">Launch Live App ↗</a>
-            </div>
-            <div>
-              <div class="feature-stat" style="border:1px solid var(--beige-dark); margin-bottom:1px;">
-                <div class="stat-number">99.9%</div>
-                <div class="stat-label">Uptime SLA</div>
-              </div>
-              <div class="feature-stat" style="border:1px solid var(--beige-dark); margin-bottom:1px;">
-                <div class="stat-number">&lt;2s</div>
-                <div class="stat-label">Time to First Byte</div>
-              </div>
-              <div class="feature-stat" style="border:1px solid var(--beige-dark);">
-                <div class="stat-number">CDN</div>
-                <div class="stat-label">Global Edge Delivery</div>
-              </div>
-            </div>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="hero-stat-number">80<span>+</span></div>
+            <div class="hero-stat-label">AWS Labs</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-number">10<span>+</span></div>
+            <div class="hero-stat-label">AWS Services</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-number">5<span>+</span></div>
+            <div class="hero-stat-label">Projects Shipped</div>
           </div>
         </div>
       </div>
+
+      <div class="hero-right">
+        <img src="assets/img/pro_hero.png" alt="Matthew Cedric Golez">
+        <div class="hero-card reveal">
+          <div class="card-name">Matthew Cedric Golez</div>
+          <div class="card-role">Cloud Engineer</div>
+          <div class="card-tags">
+            <span class="card-tag">AWS</span>
+            <span class="card-tag">Full-Stack</span>
+            <span class="card-tag">Databases</span>
+          </div>
+        </div>
+      </div>
+
     </section>
 
-    <div class="divider"></div>
 
     <!-- ── Skills ──────────────────────────────── -->
     <section id="skills">
@@ -1310,6 +1169,23 @@
         <h2 class="section-title reveal"><em>Projects</em></h2>
 
         <div class="projects-grid">
+          <div class="project-card reveal">
+            <div class="project-number">00 // LIVE</div>
+            <div class="project-title">Personal Engineering Blog</div>
+            <div class="project-sub">Cloud Architecture · Active Deployment</div>
+            <ul class="project-bullets">
+              <li>Designed and deployed a highly available technical blog serving content globally through a dedicated AWS CloudFront edge-caching profile.</li>
+              <li>Configured secure origins, optimized cache behaviors, and custom routing policies to achieve minimal TTFB and seamless UI delivery.</li>
+            </ul>
+            <div class="project-tags" style="margin-bottom: 20px;">
+              <span class="project-tag">AWS CloudFront</span>
+              <span class="project-tag">Edge Caching</span>
+              <span class="project-tag">CDN</span>
+              <span class="project-tag">High Availability</span>
+            </div>
+            <a href="https://d26pw1u8joukgr.cloudfront.net/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size:0.7rem; padding: 10px 20px;">Launch Live App ↗</a>
+          </div>
+
           <div class="project-card reveal">
             <div class="project-number">01 // ML</div>
             <div class="project-title">User Hobby Classifier</div>
