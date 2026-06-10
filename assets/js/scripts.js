@@ -1,15 +1,3 @@
-// Theme Switcher Logic
-const themeSelect = document.getElementById('theme-select');
-if (themeSelect) {
-    const activeTheme = document.documentElement.getAttribute('data-theme') || 'dracula';
-    themeSelect.value = activeTheme;
-
-    themeSelect.addEventListener('change', (e) => {
-        const selectedTheme = e.target.value;
-        document.documentElement.setAttribute('data-theme', selectedTheme);
-        localStorage.setItem('portfolio-theme', selectedTheme);
-    });
-}
 
 // Canvas background — node graph
 const canvas = document.getElementById('canvas-bg');
