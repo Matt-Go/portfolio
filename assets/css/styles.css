@@ -203,27 +203,30 @@
 
     .hero-right {
       position: relative;
-      background: var(--beige-mid);
+      background: var(--beige);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(20px, 4vw, 48px);
       overflow: hidden;
     }
 
     .hero-right img {
       width: 100%;
       height: 100%;
+      max-width: 380px;
+      max-height: 480px;
       object-fit: cover;
       object-position: center top;
       display: block;
+      border: 1px solid var(--beige-dark);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
       filter: none;
     }
 
-    /* Gradient fade on left edge of photo */
+    /* Gradient fade is disabled for framed style */
     .hero-right::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, var(--cream) 0%, transparent 18%);
-      z-index: 1;
-      pointer-events: none;
+      display: none;
     }
 
     /* Info card overlay at bottom of photo */
