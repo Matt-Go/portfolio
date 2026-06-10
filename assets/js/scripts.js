@@ -1,3 +1,10 @@
+// Theme Switcher Logic
+const themeSelect = document.getElementById('theme-select');
+if (themeSelect) {
+    themeSelect.addEventListener('change', (e) => {
+        document.documentElement.setAttribute('data-theme', e.target.value);
+    });
+}
 
 // Canvas background — node graph
 const canvas = document.getElementById('canvas-bg');
