@@ -6,1088 +6,262 @@
   <title>Matthew Cedric Golez — Cloud Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-
-  <style>
-    /* ─── Design Tokens ─────────────────────────────── */
-    :root {
-      --beige:        #F0F0F0;
-      --beige-mid:    #E2E2E2;
-      --beige-dark:   #CCCCCC;
-      --cream:        #F7F7F7;
-      --bark:         #1A1A1A;
-      --bark-light:   #555555;
-      --clay:         #888888;
-      --clay-dark:    #666666;
-      --sage:         #888888;
-      --rust:         #444444;
-      --ink:          #0D0D0D;
-      --ink-soft:     #444444;
-
-      --serif:        'Cormorant Garamond', Georgia, serif;
-      --sans:         'DM Sans', sans-serif;
-      --mono:         'DM Mono', monospace;
-
-      --max-w:        1100px;
-      --nav-h:        72px;
-      --gap:          clamp(48px, 8vw, 96px);
-    }
-
-    /* ─── Reset & Base ──────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-
-    body {
-      background-color: var(--cream);
-      color: var(--ink);
-      font-family: var(--sans);
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* Subtle paper grain texture */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    ul { list-style: none; }
-    img { display: block; max-width: 100%; }
-
-    /* ─── Layout helpers ────────────────────────────── */
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 clamp(20px, 5vw, 60px);
-    }
-
-    /* ─── Navigation ─────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      height: var(--nav-h);
-      background: rgba(250, 247, 242, 0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--beige-dark);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 clamp(20px, 5vw, 60px);
-    }
-
-    .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.15rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: var(--bark);
-    }
-
-    .nav-logo em {
-      font-style: italic;
-      color: var(--clay);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .nav-links a {
-      font-size: 0.75rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--bark-light);
-      transition: color 0.2s;
-      position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px; left: 0;
-      width: 0; height: 1px;
-      background: var(--clay);
-      transition: width 0.25s ease;
-    }
-
-    .nav-links a:hover { color: var(--clay); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--clay); }
-    .nav-links a.active::after { width: 100%; }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.85); }
-    }
-
-    /* ─── Section shared ─────────────────────────────── */
-    section {
-      padding: var(--gap) 0;
-    }
-
-    .section-label {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--clay);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 400;
-      line-height: 1.1;
-      color: var(--bark);
-      margin-bottom: 48px;
-    }
-
-    .section-title em {
-      font-style: italic;
-      font-weight: 300;
-      color: var(--clay);
-    }
-
-    /* ─── Reveal animation ───────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-
-    .reveal.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ─── HERO ───────────────────────────────────────── */
-    #hero {
-      height: 100vh;
-      max-height: 100vh;
-      display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: calc(var(--nav-h) + 40px) clamp(24px, 5vw, 64px) 40px clamp(80px, 15vw, 200px);
-      background: var(--cream);
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    .hero-right {
-      position: relative;
-      background: var(--beige-mid);
-      overflow: hidden;
-    }
-
-    .hero-right img {
-      width: 100%;
-      height: 115%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      filter: none;
-    }
-
-    /* Gradient fade on left edge of photo */
-    .hero-right::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, var(--cream) 0%, transparent 18%);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* Info card overlay at bottom of photo */
-    .hero-card {
-      position: absolute;
-      bottom: 36px;
-      left: 28px;
-      z-index: 2;
-      background: rgba(250, 247, 242, 0.92);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--beige-dark);
-      padding: 20px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-width: 220px;
-    }
-
-    .card-name {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--bark);
-    }
-
-    .card-role {
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--clay);
-      font-family: var(--mono);
-    }
-
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 4px;
-    }
-
-    .card-tag {
-      background: var(--beige-mid);
-      border: 1px solid var(--beige-dark);
-      padding: 3px 8px;
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--bark-light);
-      font-family: var(--mono);
-    }
-
-    .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--clay);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 32px; height: 1px;
-      background: var(--clay);
-    }
-
-    .hero-name {
-      font-family: var(--serif);
-      font-size: clamp(2.6rem, 4.5vw, 5.2rem);
-      font-weight: 300;
-      line-height: 1.0;
-      color: var(--bark);
-      margin-bottom: 20px;
-    }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--clay);
-      display: block;
-    }
-
-    .hero-title-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .hero-divider {
-      width: 40px; height: 1px;
-      background: var(--beige-dark);
-    }
-
-    .hero-stack {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--bark-light);
-    }
-
-    .hero-summary {
-      font-size: 0.95rem;
-      font-weight: 300;
-      color: var(--ink-soft);
-      max-width: 480px;
-      margin-bottom: 28px;
-      line-height: 1.7;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 36px;
-    }
-
-    /* Stats bar */
-    .hero-stats {
-      display: flex;
-      gap: 36px;
-      padding-top: 24px;
-      border-top: 1px solid var(--beige-dark);
-    }
-
-    .hero-stat-item {}
-
-    .hero-stat-number {
-      font-family: var(--serif);
-      font-size: 1.9rem;
-      font-weight: 300;
-      color: var(--bark);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .hero-stat-number span {
-      color: var(--clay);
-      font-style: italic;
-    }
-
-    .hero-stat-label {
-      font-size: 0.68rem;
-      font-family: var(--mono);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--bark-light);
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bark);
-      color: var(--cream);
-      padding: 14px 28px;
-      font-size: 0.78rem;
-      font-family: var(--sans);
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1.5px solid var(--bark);
-      transition: background 0.25s, color 0.25s;
-    }
-
-    .btn-primary:hover {
-      background: var(--clay);
-      border-color: var(--clay);
-    }
-
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--bark);
-      padding: 14px 28px;
-      font-size: 0.78rem;
-      font-family: var(--sans);
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1.5px solid var(--beige-dark);
-      transition: border-color 0.25s, color 0.25s;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--bark);
-      color: var(--clay);
-    }
-
-    /* ─── Divider ─────────────────────────────────── */
-    .divider {
-      height: 1px;
-      background: var(--beige-dark);
-      margin: 0 clamp(20px, 5vw, 60px);
-    }
-
-    /* ─── Skills ─────────────────────────────────── */
-    #skills {
-      background: var(--cream);
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--beige-dark);
-      border: 1px solid var(--beige-dark);
-    }
-
-    .skill-block {
-      background: var(--cream);
-      padding: 32px;
-      transition: background 0.2s;
-    }
-
-    .skill-block:hover { background: var(--beige); }
-
-    .skill-icon {
-      width: 36px; height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--beige-dark);
-      margin-bottom: 16px;
-      font-size: 1rem;
-    }
-
-    .skill-category {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--clay);
-      margin-bottom: 8px;
-    }
-
-    .skill-name {
-      font-family: var(--serif);
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: var(--bark);
-      margin-bottom: 14px;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .skill-tag {
-      font-size: 0.68rem;
-      font-family: var(--mono);
-      color: var(--bark-light);
-      background: var(--beige-mid);
-      padding: 3px 8px;
-      letter-spacing: 0.06em;
-    }
-
-    /* ─── Experience ───────────────────────────────── */
-    #experience {
-      background: var(--beige);
-    }
-
-    .exp-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .exp-item {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 48px;
-      padding: 40px 0;
-      border-bottom: 1px solid var(--beige-dark);
-    }
-
-    .exp-item:first-child {
-      border-top: 1px solid var(--beige-dark);
-    }
-
-    .exp-meta {
-      padding-top: 4px;
-    }
-
-    .exp-date {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--clay);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .exp-company {
-      font-family: var(--serif);
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--bark);
-      margin-bottom: 4px;
-    }
-
-    .exp-location {
-      font-size: 0.75rem;
-      color: var(--bark-light);
-    }
-
-    .exp-content {}
-
-    .exp-role {
-      font-family: var(--serif);
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--bark);
-      margin-bottom: 6px;
-    }
-
-    .exp-project {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      color: var(--clay);
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      margin-top: 16px;
-    }
-
-    .exp-project:first-of-type { margin-top: 0; }
-
-    .exp-bullets {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .exp-bullets li {
-      font-size: 0.88rem;
-      color: var(--ink-soft);
-      line-height: 1.65;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .exp-bullets li::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: var(--clay);
-    }
-
-    .exp-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 16px;
-    }
-
-    .exp-chip {
-      background: transparent;
-      border: 1px solid var(--beige-dark);
-      padding: 4px 10px;
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--bark-light);
-      font-family: var(--mono);
-    }
-
-    /* ─── Projects ─────────────────────────────────── */
-    #projects {
-      background: var(--cream);
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--beige-dark);
-      border: 1px solid var(--beige-dark);
-    }
-
-    .project-card {
-      background: var(--cream);
-      padding: 36px;
-      transition: background 0.2s;
-    }
-
-    .project-card:hover { background: var(--beige); }
-
-    .project-number {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      color: var(--clay);
-      margin-bottom: 16px;
-    }
-
-    .project-title {
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: var(--bark);
-      margin-bottom: 6px;
-    }
-
-    .project-sub {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--clay);
-      margin-bottom: 16px;
-    }
-
-    .project-bullets {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      margin-bottom: 20px;
-    }
-
-    .project-bullets li {
-      font-size: 0.85rem;
-      color: var(--ink-soft);
-      line-height: 1.6;
-      padding-left: 14px;
-      position: relative;
-    }
-
-    .project-bullets li::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: var(--clay);
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .project-tag {
-      font-size: 0.65rem;
-      font-family: var(--mono);
-      color: var(--bark-light);
-      background: var(--beige-mid);
-      padding: 3px 8px;
-      letter-spacing: 0.06em;
-    }
-
-    /* ─── Education ─────────────────────────────────── */
-    #education {
-      background: var(--beige);
-    }
-
-    .edu-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--beige-dark);
-      border: 1px solid var(--beige-dark);
-    }
-
-    .edu-card {
-      background: var(--beige);
-      padding: 36px;
-    }
-
-    .edu-period {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--clay);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .edu-period::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--beige-dark);
-    }
-
-    .edu-school {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--bark);
-      margin-bottom: 4px;
-    }
-
-    .edu-degree {
-      font-family: var(--serif);
-      font-size: 1.4rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--clay);
-      margin-bottom: 16px;
-    }
-
-    .edu-bullets {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      margin-bottom: 20px;
-    }
-
-    .edu-bullets li {
-      font-size: 0.85rem;
-      color: var(--ink-soft);
-      line-height: 1.6;
-      padding-left: 14px;
-      position: relative;
-    }
-
-    .edu-bullets li::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: var(--clay);
-    }
-
-    .edu-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .edu-tag {
-      font-size: 0.65rem;
-      font-family: var(--mono);
-      color: var(--bark-light);
-      background: var(--cream);
-      padding: 3px 8px;
-      letter-spacing: 0.06em;
-    }
-
-    /* ─── Contact ─────────────────────────────────── */
-    #contact {
-      background: #111111;
-      color: var(--cream);
-      padding: calc(var(--gap) * 1.5) 0;
-    }
-
-    .contact-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 clamp(20px, 5vw, 60px);
-    }
-
-    .contact-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--clay);
-      margin-bottom: 16px;
-    }
-
-    .contact-headline {
-      font-family: var(--serif);
-      font-size: clamp(2.5rem, 7vw, 5.5rem);
-      font-weight: 300;
-      line-height: 1.05;
-      color: var(--beige);
-      margin-bottom: 60px;
-    }
-
-    .contact-headline em {
-      font-style: italic;
-      color: var(--clay);
-    }
-
-    .contact-rows {
-      display: flex;
-      flex-direction: column;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .contact-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 22px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      transition: padding-left 0.25s;
-    }
-
-    .contact-row:hover {
-      padding-left: 12px;
-    }
-
-    .contact-row-left {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .contact-row-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--clay);
-    }
-
-    .contact-row-value {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      color: var(--beige);
-    }
-
-    .contact-row-arrow {
-      color: var(--clay);
-      font-size: 1.2rem;
-      transition: transform 0.25s;
-    }
-
-    .contact-row:hover .contact-row-arrow { transform: translateX(6px); }
-
-    /* ─── Footer ─────────────────────────────────── */
-    footer {
-      background: #111111;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 24px clamp(20px, 5vw, 60px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .footer-copy {
-      font-size: 0.72rem;
-      color: rgba(250,247,242,0.4);
-      font-family: var(--mono);
-      letter-spacing: 0.08em;
-    }
-
-    .footer-coords {
-      font-size: 0.72rem;
-      color: rgba(250,247,242,0.3);
-      font-family: var(--mono);
-      letter-spacing: 0.08em;
-    }
-
-    /* ─── Responsive ─────────────────────────────── */
-    @media (max-width: 900px) {
-      #hero {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 50vh;
-      }
-
-      .hero-left {
-        padding: calc(var(--nav-h) + 40px) clamp(20px, 5vw, 40px) 40px;
-      }
-
-      .hero-right::before {
-        background: linear-gradient(to bottom, var(--cream) 0%, transparent 20%);
-      }
-
-      .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .feature-cell.wide {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .edu-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .exp-item {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .nav-links { display: none; }
-    }
-
-    @media (max-width: 600px) {
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>
+    (function() {
+      const theme = localStorage.getItem('portfolio-theme') || 'dracula';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 
 <body>
 
+  <canvas id="canvas-bg"></canvas>
+  <div class="data-streams" id="streams"></div>
+
   <!-- ── Navigation ──────────────────────────── -->
   <nav>
-    <div class="nav-logo">Matthew Cedric <em>Golez</em></div>
+    <div class="nav-logo">MCG<span>::</span>cloud_engineer</div>
     <ul class="nav-links">
-      <li><a href="#hero" class="active">Home</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Work</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="src/projects.html">Projects</a></li>
+      <li><a href="src/experience.html">Work</a></li>
+      <li><a href="src/skills.html">Skills</a></li>
+      <li><a href="src/education.html">Education</a></li>
+      <li><a href="src/contact.html">Contact</a></li>
     </ul>
-
+    <div class="nav-controls">
+      <select id="theme-select">
+        <option value="dracula">Dracula Pro</option>
+        <option value="nord">Nord Light</option>
+        <option value="deep-sea">Deep Sea</option>
+        <option value="midnight">Midnight</option>
+        <option value="solarized">Solarized</option>
+        <option value="synthwave">Synthwave</option>
+        <option value="forest">Forest</option>
+        <option value="concrete">Concrete</option>
+      </select>
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        AVAILABLE
+      </div>
   </nav>
 
   <main>
 
     <!-- ── Hero ────────────────────────────────── -->
     <section id="hero">
-
-      <div class="hero-left">
-        <p class="hero-eyebrow">Cloud-Focused Full-Stack Developer</p>
-
-        <h1 class="hero-name">
-          Matthew Cedric<em>Golez</em>
-        </h1>
-
-        <div class="hero-title-row">
-          <div class="hero-divider"></div>
-          <span class="hero-stack">AWS · Python · Java · SQL · Git</span>
-        </div>
-
-        <p class="hero-summary">
-          Building scalable cloud architecture and data pipelines that run fast, stay up, and handle the real world. Based in Seattle — deploying everywhere.
-        </p>
-
-        <div class="hero-cta">
-          <a href="#contact" class="btn-primary">Get in Touch ↗</a>
-          <a href="#featured-project" class="btn-outline">Featured Project</a>
-        </div>
-
-        <div class="hero-stats">
-          <div class="hero-stat-item">
-            <div class="hero-stat-number">80<span>+</span></div>
-            <div class="hero-stat-label">AWS Labs</div>
+      <div class="container">
+        <div class="hero-layout">
+          <!-- 1. Left/Photo -->
+          <div class="hero-photo">
+            <img src="assets/img/pro_hero.png" alt="Matthew Cedric Golez">
           </div>
-          <div class="hero-stat-item">
-            <div class="hero-stat-number">10<span>+</span></div>
-            <div class="hero-stat-label">AWS Services</div>
+
+          <!-- 2. Middle/Content -->
+          <div>
+            <p class="hero-eyebrow">Cloud-Focused Full-Stack Developer</p>
+            <h1 class="hero-name">
+              Matthew Cedric<br><span class="line2">Golez</span>
+            </h1>
+            <div class="hero-title">
+              AWS · Python · Java · SQL · Git
+            </div>
+            <p class="hero-summary">
+              Building scalable cloud architecture and data pipelines that run fast, stay up, and handle the real world. Based in Seattle — deploying everywhere.
+            </p>
+            <div class="hero-cta">
+              <a href="src/contact.html" class="btn-primary">Get in Touch ↗</a>
+              <a href="src/projects.html" class="btn-outline">View Projects</a>
+            </div>
+            
+            <div class="hero-stats" style="display: flex; gap: 24px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
+              <div class="hero-stat-item">
+                <div class="hero-stat-number" style="font-family: var(--display); font-size: 24px; font-weight: 900; color: var(--cyan);">80+</div>
+                <div class="hero-stat-label" style="font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase;">AWS Labs</div>
+              </div>
+              <div class="hero-stat-item">
+                <div class="hero-stat-number" style="font-family: var(--display); font-size: 24px; font-weight: 900; color: var(--cyan);">10+</div>
+                <div class="hero-stat-label" style="font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase;">AWS Services</div>
+              </div>
+              <div class="hero-stat-item">
+                <div class="hero-stat-number" style="font-family: var(--display); font-size: 24px; font-weight: 900; color: var(--cyan);">5+</div>
+                <div class="hero-stat-label" style="font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase;">Projects Shipped</div>
+              </div>
+            </div>
           </div>
-          <div class="hero-stat-item">
-            <div class="hero-stat-number">5<span>+</span></div>
-            <div class="hero-stat-label">Projects Shipped</div>
+
+          <!-- 3. Right/Terminal -->
+          <div class="hero-terminal">
+            <div class="terminal-bar">
+              <div class="t-dot r"></div>
+              <div class="t-dot y"></div>
+              <div class="t-dot g"></div>
+              <div class="terminal-title">bash</div>
+            </div>
+            <div class="terminal-body">
+              <span class="t-line"><span class="t-prompt">matt@cloud-sys:~$</span> <span class="t-cmd">curl -s https://api.mattgolez.com/status</span></span>
+              <span class="t-line t-success">{"status": "available", "deployment": "active"}</span>
+              <span class="t-line"><span class="t-prompt">matt@cloud-sys:~$</span> <span class="t-cmd">terraform plan</span></span>
+              <span class="t-line t-comment"># Refreshing Terraform state...</span>
+              <span class="t-line"><span class="t-key">Plan:</span> <span class="t-val">0 to add, 0 to change, 0 to destroy.</span></span>
+              <span class="t-line"><span class="t-prompt">matt@cloud-sys:~$</span> <span class="t-cmd">node db_check.js</span></span>
+              <span class="t-line t-success">✓ Database connection: SECURE</span>
+              <span class="t-line t-success">✓ Latency: 12ms | Cache: HIT</span>
+              <span class="t-line"><span class="t-prompt">matt@cloud-sys:~$</span> <span class="t-cursor-blink"></span></span>
+            </div>
           </div>
+
         </div>
       </div>
-
-      <div class="hero-right">
-        <img src="assets/img/pro_hero.png" alt="Matthew Cedric Golez">
-        <div class="hero-card reveal">
-          <div class="card-name">Matthew Cedric Golez</div>
-          <div class="card-role">Cloud Engineer</div>
-          <div class="card-tags">
-            <span class="card-tag">AWS</span>
-            <span class="card-tag">Full-Stack</span>
-            <span class="card-tag">Databases</span>
-          </div>
-        </div>
-      </div>
-
     </section>
 
 
     <!-- ── Skills ──────────────────────────────── -->
     <section id="skills">
       <div class="container">
-        <div class="section-label reveal">01 — Technical Stack</div>
-        <h2 class="section-title reveal"><em>Skills</em></h2>
+        <div class="section-header reveal">
+          <span class="section-label">01 — Technical Stack</span>
+          <h2 class="section-title"><em>Skills</em></h2>
+        </div>
 
-        <div class="skills-grid">
-          <div class="skill-block reveal">
-            <div class="skill-icon">☁️</div>
-            <div class="skill-category">01 // Architecture</div>
-            <div class="skill-name">Cloud & AWS</div>
-            <div class="skill-tags">
-              <span class="skill-tag">S3</span><span class="skill-tag">EC2</span><span class="skill-tag">RDS</span>
-              <span class="skill-tag">VPC</span><span class="skill-tag">Lambda</span><span class="skill-tag">DynamoDB</span>
-              <span class="skill-tag">Redshift</span><span class="skill-tag">CloudFront</span>
-              <span class="skill-tag">Auto Scaling</span><span class="skill-tag">Systems Manager</span>
+        <div class="exp-grid">
+          <div class="exp-item reveal" style="border-top: 1px solid var(--border);">
+            <div class="exp-meta">
+              <div class="exp-date">01 // ARCHITECTURE</div>
+              <div class="exp-company">Cloud & AWS</div>
+              <div class="exp-location">☁️</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">Core AWS Services</div>
+              <div class="metric-chips">
+                <span class="metric-chip">S3</span>
+                <span class="metric-chip">EC2</span>
+                <span class="metric-chip">RDS</span>
+                <span class="metric-chip">VPC</span>
+                <span class="metric-chip">Lambda</span>
+                <span class="metric-chip">DynamoDB</span>
+                <span class="metric-chip">Redshift</span>
+                <span class="metric-chip">CloudFront</span>
+                <span class="metric-chip">Auto Scaling</span>
+                <span class="metric-chip">Systems Manager</span>
+              </div>
             </div>
           </div>
 
-          <div class="skill-block reveal">
-            <div class="skill-icon">🐍</div>
-            <div class="skill-category">02 // Languages</div>
-            <div class="skill-name">Software Development</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">SQL</span>
-              <span class="skill-tag">JavaScript</span><span class="skill-tag">Node.js</span>
-              <span class="skill-tag">Shell Script</span><span class="skill-tag">C</span><span class="skill-tag">Git</span>
+          <div class="exp-item reveal">
+            <div class="exp-meta">
+              <div class="exp-date">02 // LANGUAGES</div>
+              <div class="exp-company">Programming</div>
+              <div class="exp-location">🐍</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">Software Development</div>
+              <div class="metric-chips">
+                <span class="metric-chip">Python</span>
+                <span class="metric-chip">Java</span>
+                <span class="metric-chip">SQL</span>
+                <span class="metric-chip">JavaScript</span>
+                <span class="metric-chip">Node.js</span>
+                <span class="metric-chip">Shell Script</span>
+                <span class="metric-chip">C</span>
+                <span class="metric-chip">Git</span>
+              </div>
             </div>
           </div>
 
-          <div class="skill-block reveal">
-            <div class="skill-icon">🗄️</div>
-            <div class="skill-category">03 // Data</div>
-            <div class="skill-name">Databases</div>
-            <div class="skill-tags">
-              <span class="skill-tag">PostgreSQL</span><span class="skill-tag">AWS RDS</span>
-              <span class="skill-tag">DynamoDB</span><span class="skill-tag">Azure SQL</span>
-              <span class="skill-tag">Redshift</span><span class="skill-tag">PITR</span>
-              <span class="skill-tag">Snapshots</span>
+          <div class="exp-item reveal">
+            <div class="exp-meta">
+              <div class="exp-date">03 // DATA</div>
+              <div class="exp-company">Databases</div>
+              <div class="exp-location">🗄️</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">Data Storage & Management</div>
+              <div class="metric-chips">
+                <span class="metric-chip">PostgreSQL</span>
+                <span class="metric-chip">AWS RDS</span>
+                <span class="metric-chip">DynamoDB</span>
+                <span class="metric-chip">Azure SQL</span>
+                <span class="metric-chip">Redshift</span>
+                <span class="metric-chip">PITR</span>
+                <span class="metric-chip">Snapshots</span>
+              </div>
             </div>
           </div>
 
-          <div class="skill-block reveal">
-            <div class="skill-icon">🌐</div>
-            <div class="skill-category">04 // Infra</div>
-            <div class="skill-name">Cloud Networking</div>
-            <div class="skill-tags">
-              <span class="skill-tag">VPC</span><span class="skill-tag">Subnets</span><span class="skill-tag">NACL</span>
-              <span class="skill-tag">Security Groups</span><span class="skill-tag">IGW</span>
-              <span class="skill-tag">Cloudflare</span><span class="skill-tag">Load Balancer</span>
+          <div class="exp-item reveal">
+            <div class="exp-meta">
+              <div class="exp-date">04 // INFRA</div>
+              <div class="exp-company">Networking</div>
+              <div class="exp-location">🌐</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">Cloud Networking</div>
+              <div class="metric-chips">
+                <span class="metric-chip">VPC</span>
+                <span class="metric-chip">Subnets</span>
+                <span class="metric-chip">NACL</span>
+                <span class="metric-chip">Security Groups</span>
+                <span class="metric-chip">IGW</span>
+                <span class="metric-chip">Cloudflare</span>
+                <span class="metric-chip">Load Balancer</span>
+              </div>
             </div>
           </div>
 
-          <div class="skill-block reveal">
-            <div class="skill-icon">🐧</div>
-            <div class="skill-category">05 // Core</div>
-            <div class="skill-name">Systems & OS</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Linux</span><span class="skill-tag">Windows</span>
-              <span class="skill-tag">Shell</span><span class="skill-tag">File Permissions</span>
-              <span class="skill-tag">Process Mgmt</span><span class="skill-tag">PuTTY</span>
+          <div class="exp-item reveal">
+            <div class="exp-meta">
+              <div class="exp-date">05 // CORE</div>
+              <div class="exp-company">Systems & OS</div>
+              <div class="exp-location">🐧</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">System Administration</div>
+              <div class="metric-chips">
+                <span class="metric-chip">Linux</span>
+                <span class="metric-chip">Windows</span>
+                <span class="metric-chip">Shell</span>
+                <span class="metric-chip">File Permissions</span>
+                <span class="metric-chip">Process Mgmt</span>
+                <span class="metric-chip">PuTTY</span>
+              </div>
             </div>
           </div>
 
-          <div class="skill-block reveal">
-            <div class="skill-icon">⚡</div>
-            <div class="skill-category">06 // Workflow</div>
-            <div class="skill-name">Dev Practices</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Agile</span><span class="skill-tag">Kanban</span>
-              <span class="skill-tag">Git</span><span class="skill-tag">SEO</span>
-              <span class="skill-tag">Data Pipelines</span><span class="skill-tag">CI/CD</span>
+          <div class="exp-item reveal">
+            <div class="exp-meta">
+              <div class="exp-date">06 // WORKFLOW</div>
+              <div class="exp-company">Dev Practices</div>
+              <div class="exp-location">⚡</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">Methodologies & Tools</div>
+              <div class="metric-chips">
+                <span class="metric-chip">Agile</span>
+                <span class="metric-chip">Kanban</span>
+                <span class="metric-chip">Git</span>
+                <span class="metric-chip">SEO</span>
+                <span class="metric-chip">Data Pipelines</span>
+                <span class="metric-chip">CI/CD</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="divider"></div>
-
     <!-- ── Experience ───────────────────────────── -->
     <section id="experience">
       <div class="container">
-        <div class="section-label reveal">02 — Work History</div>
-        <h2 class="section-title reveal"><em>Experience</em></h2>
+        <div class="section-header reveal">
+          <span class="section-label">02 — Work History</span>
+          <h2 class="section-title"><em>Experience</em></h2>
+        </div>
 
-        <div class="exp-list">
-
-          <div class="exp-item reveal">
+        <div class="exp-grid">
+          <div class="exp-item reveal" style="border-top: 1px solid var(--border);">
             <div class="exp-meta">
               <div class="exp-date">Feb 2024 – Jul 2024</div>
               <div class="exp-company">Freelance</div>
@@ -1095,23 +269,23 @@
             </div>
             <div class="exp-content">
               <div class="exp-role">Full Stack Developer</div>
-              <div class="exp-project">Artist Portfolio Website</div>
+              <div class="exp-project">▸ Artist Portfolio Website</div>
               <ul class="exp-bullets">
                 <li>Built a responsive portfolio site in Node.js with optimized UX and SEO, delivering a 10% lift in unique visits for the client.</li>
                 <li>Architected AWS S3 storage for 50+ high-resolution images, achieving sub-2s load times with guaranteed high availability.</li>
                 <li>Maintained 99.9% uptime via Cloudflare edge caching, real-time analytics, and proactive performance monitoring.</li>
               </ul>
-              <div class="exp-project">E-Commerce Platform</div>
+              <div class="exp-project">▸ E-Commerce Platform</div>
               <ul class="exp-bullets">
                 <li>Developed a Node.js + PayPal API e-commerce platform handling 100+ purchases including concurrent transactions during peak sales.</li>
                 <li>Implemented PostgreSQL on AWS RDS with optimized data architecture achieving near-zero latency for real-time inventory updates.</li>
                 <li>Configured RDS scheduled snapshots and PITR workflows ensuring 100% data integrity across unexpected downtime events.</li>
               </ul>
-              <div class="exp-chips">
-                <span class="exp-chip">+10% Unique Visits</span>
-                <span class="exp-chip">99.9% Uptime</span>
-                <span class="exp-chip">100+ Transactions</span>
-                <span class="exp-chip">&lt;2s Load Time</span>
+              <div class="metric-chips">
+                <span class="metric-chip">+10% Unique Visits</span>
+                <span class="metric-chip">99.9% Uptime</span>
+                <span class="metric-chip">100+ Transactions</span>
+                <span class="metric-chip">&lt;2s Load Time</span>
               </div>
             </div>
           </div>
@@ -1124,15 +298,15 @@
             </div>
             <div class="exp-content">
               <div class="exp-role">Embedded Systems Engineer</div>
-              <div class="exp-project">Hardware & Firmware</div>
+              <div class="exp-project">▸ Hardware & Firmware</div>
               <ul class="exp-bullets">
                 <li>Collaborated within a cross-functional team of 60+ members, using Kanban to deliver 2+ hardware and software milestones per sprint.</li>
                 <li>Programmed STM32 microcontrollers in C to integrate IMU data, improving navigation precision by 10% via real-time sensor fusion and motion control logic.</li>
               </ul>
-              <div class="exp-chips">
-                <span class="exp-chip">60+ Team Members</span>
-                <span class="exp-chip">+10% Navigation Precision</span>
-                <span class="exp-chip">Kanban Agile</span>
+              <div class="metric-chips">
+                <span class="metric-chip">60+ Team Members</span>
+                <span class="metric-chip">+10% Navigation Precision</span>
+                <span class="metric-chip">Kanban Agile</span>
               </div>
             </div>
           </div>
@@ -1145,125 +319,157 @@
             </div>
             <div class="exp-content">
               <div class="exp-role">IT Infrastructure Mentee</div>
-              <div class="exp-project">Enterprise Infrastructure Exposure</div>
+              <div class="exp-project">▸ Enterprise Infrastructure Exposure</div>
               <ul class="exp-bullets">
                 <li>Gained hands-on experience observing management of physical servers and networking infrastructure supporting 1,300+ employees across 30+ office locations.</li>
                 <li>Shadowed resolution of 3+ enterprise service tickets per visit, building exposure to incident response workflows and SLA operations.</li>
               </ul>
-              <div class="exp-chips">
-                <span class="exp-chip">1,300+ Employees</span>
-                <span class="exp-chip">30+ Offices</span>
-                <span class="exp-chip">SLA Workflows</span>
+              <div class="metric-chips">
+                <span class="metric-chip">1,300+ Employees</span>
+                <span class="metric-chip">30+ Offices</span>
+                <span class="metric-chip">SLA Workflows</span>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
-
-    <div class="divider"></div>
 
     <!-- ── Projects ──────────────────────────────── -->
     <section id="projects">
       <div class="container">
-        <div class="section-label reveal">03 — Projects</div>
-        <h2 class="section-title reveal"><em>Projects</em></h2>
+        <div class="section-header reveal">
+          <span class="section-label">03 — Projects</span>
+          <h2 class="section-title"><em>Projects</em></h2>
+        </div>
 
-        <div class="projects-grid">
-          <div class="project-card reveal">
-            <div class="project-number">00 // LIVE</div>
-            <div class="project-title">Personal Engineering Blog</div>
-            <div class="project-sub">Cloud Architecture · Active Deployment</div>
-            <ul class="project-bullets">
-              <li>Designed and deployed a highly available technical blog serving content globally through a dedicated AWS CloudFront edge-caching profile.</li>
-              <li>Configured secure origins, optimized cache behaviors, and custom routing policies to achieve minimal TTFB and seamless UI delivery.</li>
-            </ul>
-            <div class="project-tags" style="margin-bottom: 20px;">
-              <span class="project-tag">AWS CloudFront</span>
-              <span class="project-tag">Edge Caching</span>
-              <span class="project-tag">CDN</span>
-              <span class="project-tag">High Availability</span>
+        <div class="exp-grid">
+          <div class="exp-item reveal" style="border-top: 1px solid var(--border);">
+            <div class="exp-meta">
+              <div class="exp-date">LIVE PROJECT</div>
+              <div class="exp-company">Cloud Architecture</div>
+              <div class="exp-location">🚀</div>
             </div>
-            <a href="https://d26pw1u8joukgr.cloudfront.net/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size:0.7rem; padding: 10px 20px;">Launch Live App ↗</a>
-          </div>
-
-          <div class="project-card reveal">
-            <div class="project-number">01 // ML</div>
-            <div class="project-title">User Hobby Classifier</div>
-            <div class="project-sub">Machine Learning · Recommendation Engine</div>
-            <ul class="project-bullets">
-              <li>Built a predictive recommendation engine using Python Flask, processing user input to identify and suggest related interests with 90%+ accuracy.</li>
-              <li>Automated a data extraction pipeline using Selenium + BeautifulSoup, aggregating 1,000+ unique user profiles from public sources.</li>
-            </ul>
-            <div class="project-tags">
-              <span class="project-tag">Python</span>
-              <span class="project-tag">Flask</span>
-              <span class="project-tag">Selenium</span>
-              <span class="project-tag">BeautifulSoup</span>
-              <span class="project-tag">ML</span>
+            <div class="exp-content">
+              <div class="exp-role">Personal Engineering Blog</div>
+              <div class="exp-project">▸ Global Content Delivery Pipeline</div>
+              <ul class="exp-bullets">
+                <li>Designed and deployed a highly available, lightning-fast technical blog serving content globally through a dedicated AWS CloudFront edge-caching profile.</li>
+                <li>Configured secure origins, optimized cache behaviors, and custom routing policies to achieve minimal Time to First Byte (TTFB) and seamless UI delivery.</li>
+              </ul>
+              <div class="hero-cta" style="margin-top: 24px; opacity: 1; animation: none;">
+                <a href="https://d26pw1u8joukgr.cloudfront.net/" target="_blank" rel="noopener noreferrer" class="btn-primary">↗ Launch Live App</a>
+              </div>
+              <div class="metric-chips" style="margin-top: 24px;">
+                <span class="metric-chip">AWS CloudFront</span>
+                <span class="metric-chip">Edge Caching</span>
+                <span class="metric-chip">CDN</span>
+                <span class="metric-chip">High Availability</span>
+                <span class="metric-chip">Performance Tuning</span>
+              </div>
             </div>
           </div>
 
-          <div class="project-card reveal">
-            <div class="project-number">02 // DB</div>
-            <div class="project-title">Flights Database System</div>
-            <div class="project-sub">Database Systems · CLI Application</div>
-            <ul class="project-bullets">
-              <li>Built a CLI-based flight management system in Java connected to Microsoft Azure SQL, managing 10,000+ entries with full transactional logic for concurrent booking and cancellations.</li>
-              <li>Achieved sub-second query execution and 100% data consistency across concurrent operations using optimized schema design and JDBC.</li>
-            </ul>
-            <div class="project-tags">
-              <span class="project-tag">Java</span>
-              <span class="project-tag">Azure SQL</span>
-              <span class="project-tag">JDBC</span>
-              <span class="project-tag">Transactions</span>
-              <span class="project-tag">CLI</span>
+          <div class="exp-item reveal">
+            <div class="exp-meta">
+              <div class="exp-date">01 // ML</div>
+              <div class="exp-company">University of Washington</div>
+              <div class="exp-location">Seattle, WA</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">User Hobby Classifier</div>
+              <div class="exp-project">▸ Machine Learning · Recommendation Engine</div>
+              <ul class="exp-bullets">
+                <li>Built a predictive recommendation engine using Python Flask, processing user input to identify and suggest related interests with 90%+ accuracy.</li>
+                <li>Automated a data extraction pipeline using Selenium + BeautifulSoup, aggregating 1,000+ unique user profiles from public sources.</li>
+              </ul>
+              <div class="metric-chips">
+                <span class="metric-chip">Python</span>
+                <span class="metric-chip">Flask</span>
+                <span class="metric-chip">Selenium</span>
+                <span class="metric-chip">BeautifulSoup</span>
+                <span class="metric-chip">ML</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item reveal">
+            <div class="exp-meta">
+              <div class="exp-date">02 // DB</div>
+              <div class="exp-company">University of Washington</div>
+              <div class="exp-location">Seattle, WA</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">Flights Database System</div>
+              <div class="exp-project">▸ Database Systems · CLI Application</div>
+              <ul class="exp-bullets">
+                <li>Built a CLI-based flight management system in Java connected to Microsoft Azure SQL, managing 10,000+ entries with full transactional logic for concurrent booking and cancellations.</li>
+                <li>Achieved sub-second query execution and 100% data consistency across concurrent operations using optimized schema design and JDBC.</li>
+              </ul>
+              <div class="metric-chips">
+                <span class="metric-chip">Java</span>
+                <span class="metric-chip">Azure SQL</span>
+                <span class="metric-chip">JDBC</span>
+                <span class="metric-chip">Transactions</span>
+                <span class="metric-chip">CLI</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="divider"></div>
-
     <!-- ── Education ─────────────────────────────── -->
     <section id="education">
       <div class="container">
-        <div class="section-label reveal">04 — Education</div>
-        <h2 class="section-title reveal"><em>Education</em></h2>
+        <div class="section-header reveal">
+          <span class="section-label">04 — Education</span>
+          <h2 class="section-title"><em>Education</em></h2>
+        </div>
 
-        <div class="edu-grid">
-          <div class="edu-card reveal">
-            <div class="edu-period">In Progress · Aug 2026</div>
-            <div class="edu-school">Per Scholas</div>
-            <div class="edu-degree">AWS re/Start Training</div>
-            <ul class="edu-bullets">
-              <li>Rigorous program covering Cloud Computing, Networking, Databases, and AWS Management, Monitoring & Governance.</li>
-              <li>Hands-on training with Linux, Python, Shell Scripting, EC2, Lambda, Auto Scaling, VPC, Network Firewall, AWS Systems Manager, Redshift, and DynamoDB.</li>
-            </ul>
-            <div class="edu-tags">
-              <span class="edu-tag">AWS</span>
-              <span class="edu-tag">Linux</span>
-              <span class="edu-tag">Python</span>
-              <span class="edu-tag">Cloud Fundamentals</span>
-              <span class="edu-tag">Networking</span>
+        <div class="exp-grid">
+          <div class="exp-item reveal" style="border-top: 1px solid var(--border);">
+            <div class="exp-meta">
+              <div class="exp-date">In Progress · Aug 2026</div>
+              <div class="exp-company">Per Scholas</div>
+              <div class="exp-location">Seattle, WA</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">AWS re/Start Training</div>
+              <div class="exp-project">▸ 15-Week Full-Time Program</div>
+              <ul class="exp-bullets">
+                <li>Rigorous program covering Cloud Computing, Networking, Databases, and AWS Management, Monitoring & Governance.</li>
+                <li>Hands-on training with Linux, Python, Shell Scripting, EC2, Lambda, Auto Scaling, VPC, Network Firewall, AWS Systems Manager, Redshift, and DynamoDB.</li>
+              </ul>
+              <div class="metric-chips">
+                <span class="metric-chip">AWS</span>
+                <span class="metric-chip">Linux</span>
+                <span class="metric-chip">Python</span>
+                <span class="metric-chip">Cloud Fundamentals</span>
+                <span class="metric-chip">Networking</span>
+              </div>
             </div>
           </div>
 
-          <div class="edu-card reveal">
-            <div class="edu-period">Completed · Mar 2021</div>
-            <div class="edu-school">University of Washington</div>
-            <div class="edu-degree">B.S. Mathematics + Minor in CS</div>
-            <ul class="edu-bullets">
-              <li>Math coursework: Discrete Modeling, Advanced Linear Algebra, Statistical Inference, Linear Programming, Numerical Analysis.</li>
-              <li>CS coursework: Data Structures & Algorithms, Database Systems & Internals.</li>
-            </ul>
-            <div class="edu-tags">
-              <span class="edu-tag">Discrete Modeling</span>
-              <span class="edu-tag">Linear Algebra</span>
-              <span class="edu-tag">Algorithms</span>
-              <span class="edu-tag">Database Systems</span>
+          <div class="exp-item reveal">
+            <div class="exp-meta">
+              <div class="exp-date">Completed · Mar 2021</div>
+              <div class="exp-company">University of Washington</div>
+              <div class="exp-location">Bothell, WA</div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-role">B.S. Mathematics + Minor in CS</div>
+              <div class="exp-project">▸ Mathematics & Computer Science</div>
+              <ul class="exp-bullets">
+                <li>Math coursework: Discrete Modeling, Advanced Linear Algebra, Statistical Inference, Linear Programming, Numerical Analysis.</li>
+                <li>CS coursework: Data Structures & Algorithms, Database Systems & Internals.</li>
+              </ul>
+              <div class="metric-chips">
+                <span class="metric-chip">Discrete Modeling</span>
+                <span class="metric-chip">Linear Algebra</span>
+                <span class="metric-chip">Algorithms</span>
+                <span class="metric-chip">Database Systems</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1273,8 +479,8 @@
     <!-- ── Contact ───────────────────────────────── -->
     <section id="contact">
       <div class="contact-inner">
-        <p class="contact-eyebrow reveal">05 — Let's Connect</p>
-        <h2 class="contact-headline reveal">
+        <span class="contact-eyebrow reveal">05 — Let's Connect</span>
+        <h2 class="contact-title reveal">
           <em>Contact</em>
         </h2>
 
@@ -1314,48 +520,10 @@
   </main>
 
   <footer>
-    <div class="footer-copy">© 2026 Matthew Cedric Golez</div>
+    <div class="footer-copy">© 2026 Matthew Cedric Golez — All systems operational</div>
+    <div class="footer-coords">47.6062°N 122.3321°W // Seattle, WA</div>
   </footer>
 
-  <script>
-    // ── Scroll reveal ─────────────────────────────
-    const revealEls = document.querySelectorAll('.reveal');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('in-view');
-          }, (i % 4) * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-    revealEls.forEach(el => observer.observe(el));
-
-    // ── Active nav link on scroll ─────────────────
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        if (window.scrollY >= sectionTop) current = section.getAttribute('id');
-      });
-
-      navLinks.forEach(a => {
-        a.classList.remove('active');
-        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
-      });
-    }, { passive: true });
-
-    // ── Stagger skill blocks ──────────────────────
-    document.querySelectorAll('.skill-block, .project-card, .edu-card').forEach((el, i) => {
-      el.style.transitionDelay = (i % 3) * 0.07 + 's';
-    });
-  </script>
-
+  <script src="assets/js/scripts.js"></script>
 </body>
 </html>

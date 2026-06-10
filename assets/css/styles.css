@@ -21,10 +21,11 @@
     --contact-muted: rgba(245, 240, 234, 0.3);
     --contact-border: rgba(245, 240, 234, 0.08);
 
-    --mono: 'Space Mono', monospace;
-    --display: 'Space Grotesk', sans-serif;
-    --body: 'Space Grotesk', sans-serif;
-    --serif: 'Space Grotesk', sans-serif;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Cormorant Garamond', Georgia, serif;
+    --body: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
 }
 
 [data-theme="deep-sea"] {
@@ -347,6 +348,14 @@ nav {
 }
 
 .nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a.active {
+    color: var(--cyan);
+}
+
+.nav-links a.active::after {
     width: 100%;
 }
 
